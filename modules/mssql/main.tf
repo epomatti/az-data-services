@@ -32,3 +32,9 @@ resource "azurerm_mssql_firewall_rule" "local" {
   start_ip_address = var.public_ip_address_to_allow
   end_ip_address   = var.public_ip_address_to_allow
 }
+
+resource "azurerm_mssql_virtual_network_rule" "vnet" {
+  name      = "sql-vnet-rule"
+  server_id = azurerm_mssql_server.default.id
+  subnet_id = var.subnet_id
+}
