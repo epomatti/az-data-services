@@ -18,6 +18,10 @@ variable "public_network_enabled" {
   type = bool
 }
 
+variable "ir_virtual_network_enabled" {
+  type = bool
+}
+
 # variable "subnet_id" {
 #   type = string
 # }

@@ -5,3 +5,9 @@ In this demo a solution named **DataBoss** will be used to connect and apply Azu
 ```sh
 dig +short myip.opendns.com @resolver1.opendns.com
 ```
+
+- [] Private endpoints
+- [] Managed private network
+- [] Consume IP addresses
+- [] Internal runtime
+- [] Code repository

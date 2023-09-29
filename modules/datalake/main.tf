@@ -14,7 +14,7 @@ resource "azurerm_storage_account" "lake" {
   is_hns_enabled = true
 
   # Networking
-  public_network_access_enabled = true
+  public_network_access_enabled = var.public_network_access_enabled
 
   network_rules {
     default_action             = "Deny"
@@ -38,3 +38,39 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "default" {
     azurerm_role_assignment.adlsv2,
   ]
 }
+
+
+# ### Private Endpoint ###
+# resource "azurerm_private_dns_zone" "default" {
+#   name                = "privatelink.dfs.core.windows.net"
+#   resource_group_name = var.group
+# }
+
+# resource "azurerm_private_dns_zone_virtual_network_link" "default" {
+#   name                  = "datalake-link"
+#   resource_group_name   = var.group
+#   private_dns_zone_name = azurerm_private_dns_zone.default.name
+#   virtual_network_id    = var.vnet_id
+#   registration_enabled  = true
+# }
+
+# resource "azurerm_private_endpoint" "default" {
+#   name                = "pe-datalake"
+#   location            = var.location
+#   resource_group_name = var.group
+#   subnet_id           = var.subnet_id
+
+#   private_dns_zone_group {
+#     name = azurerm_private_dns_zone.default.name
+#     private_dns_zone_ids = [
+#       azurerm_private_dns_zone.default.id
+#     ]
+#   }
+
+#   private_service_connection {
+#     name                           = "datalake"
+#     private_connection_resource_id = azurerm_storage_account.lake.id
+#     is_manual_connection           = false
+#     subresource_names              = ["dfs"]
+#   }
+# }
