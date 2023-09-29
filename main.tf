@@ -5,6 +5,9 @@ terraform {
       version = "3.74.0"
     }
   }
+  backend "local" {
+    path = ".terraform/terraform.tfstate"
+  }
 }
 
 locals {
@@ -64,4 +67,16 @@ module "databricks" {
   databricks_vnet_private_subnet_name               = module.vnet.databricks_private_subnet_name
   databricks_vnet_public_subnet_nsg_association_id  = module.vnet.databricks_public_subnet_nsg_association_id
   databricks_vnet_private_subnet_nsg_association_id = module.vnet.databricks_private_subnet_nsg_association_id
+}
+
+module "mssql" {
+  source   = "./modules/mssql"
+  workload = local.workload
+  group    = azurerm_resource_group.default.name
+  location = azurerm_resource_group.default.location
+
+  public_ip_address_to_allow    = var.public_ip_address_to_allow
+  public_network_access_enabled = var.mssql_public_network_access_enabled
+  admin_admin                   = var.mssql_admin_login
+  admin_login_password          = var.mssql_admin_login_password
 }

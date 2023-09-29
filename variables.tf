@@ -1,6 +1,6 @@
 variable "location" {
   type    = string
-  default = "brazilsouth"
+  default = "eastus"
 }
 
 variable "public_ip_address_to_allow" {
@@ -33,5 +33,23 @@ variable "dbw_sku" {
 }
 
 variable "dbw_vnet_no_public_ip" {
+  type = bool
+}
+
+### SQL Database ###
+variable "mssql_sku" {
+  type = string
+}
+
+variable "mssql_admin_login" {
+  type = string
+}
+
+variable "mssql_admin_login_password" {
+  type      = string
+  sensitive = true
+}
+
+variable "mssql_public_network_access_enabled" {
   type = bool
 }
