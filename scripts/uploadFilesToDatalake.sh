@@ -3,11 +3,9 @@
 datalake="dlsdataboss"
 datalakeAddress="https://$datalake.dfs.core.windows.net"
 
-directory=".bin"
+azcopy=".bin/azcopy"
 
-mkdir -p $directory
-curl -L https://aka.ms/downloadazcopy-v10-linux -o azcopylinux10.tar.gz
-tar -xf azcopylinux10.tar.gz
+
 
 
 Execute the copy:
