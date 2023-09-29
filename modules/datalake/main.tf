@@ -7,7 +7,18 @@ resource "azurerm_storage_account" "lake" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
   account_kind             = "StorageV2"
-  is_hns_enabled           = true
+
+  # Private-only data lake
+  public_network_access_enabled = false
+
+  # Hierarchical namespace
+  is_hns_enabled = true
+
+  network_rules {
+    default_action             = "Allow"
+    ip_rules                   = ["10.0.0.0/16"]
+    virtual_network_subnet_ids = [var.subnet_id]
+  }
 }
 
 resource "azurerm_role_assignment" "adlsv2" {
