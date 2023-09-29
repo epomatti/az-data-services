@@ -5,9 +5,9 @@ terraform {
       version = "3.75.0"
     }
   }
-  backend "local" {
-    path = ".terraform/terraform.tfstate"
-  }
+  # backend "local" {
+  #   path = ".terraform/terraform.tfstate"
+  # }
 }
 
 locals {
