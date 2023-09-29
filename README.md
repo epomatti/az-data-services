@@ -12,7 +12,7 @@ terraform apply -auto-approve
 ```
 
 ```sh
-bash scripts/getAzCopy.sh
+bash scripts/uploadFilesToDatalake.sh
 ```
 
 
