@@ -11,3 +11,5 @@ dig +short myip.opendns.com @resolver1.opendns.com
 - [] Consume IP addresses
 - [] Internal runtime
 - [] Code repository
+
+https://learn.microsoft.com/en-us/azure/data-factory/managed-virtual-network-private-endpoint#managed-private-endpoints
