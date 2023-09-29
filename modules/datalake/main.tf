@@ -40,6 +40,16 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "default" {
   ]
 }
 
+resource "azurerm_storage_data_lake_gen2_filesystem" "external" {
+  name               = "external"
+  storage_account_id = azurerm_storage_account.lake.id
+
+  depends_on = [
+    azurerm_role_assignment.adlsv2,
+  ]
+}
+
+
 
 # ### Private Endpoint ###
 # resource "azurerm_private_dns_zone" "default" {

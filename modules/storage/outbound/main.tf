@@ -1,4 +1,4 @@
-resource "azurerm_storage_account" "lake" {
+resource "azurerm_storage_account" "outbound" {
   name                      = "st${var.workload}outb"
   resource_group_name       = var.group
   location                  = var.location

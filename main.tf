@@ -35,8 +35,14 @@ module "datalake" {
   public_network_access_enabled = var.datalake_public_network_access_enabled
 }
 
+module "external_storage" {
+  source   = "./modules/storage/external"
+  group    = azurerm_resource_group.default.name
+  location = azurerm_resource_group.default.location
+}
+
 module "outbound_storage" {
-  source   = "./modules/storage"
+  source   = "./modules/storage/outbound"
   workload = local.workload
   group    = azurerm_resource_group.default.name
   location = azurerm_resource_group.default.location
