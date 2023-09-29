@@ -1,3 +1,7 @@
+output "storage_account_id" {
+  value = azurerm_storage_account.lake.id
+}
+
 output "primary_access_key" {
   value     = azurerm_storage_account.lake.primary_access_key
   sensitive = true

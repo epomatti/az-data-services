@@ -22,6 +22,10 @@ variable "ir_virtual_network_enabled" {
   type = bool
 }
 
+variable "storage_account_id" {
+  type = string
+}
+
 # variable "subnet_id" {
 #   type = string
 # }

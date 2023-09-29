@@ -46,4 +46,5 @@ module "adf" {
   datalake_primary_dfs_endpoint   = module.lake.primary_dfs_endpoint
   datalake_primary_access_key     = module.lake.primary_access_key
   ir_virtual_network_enabled      = var.adf_ir_virtual_network_enabled
+  storage_account_id              = module.lake.storage_account_id
 }

@@ -19,4 +19,14 @@ resource "azurerm_data_factory_integration_runtime_azure" "default" {
   data_factory_id         = azurerm_data_factory.default.id
   location                = var.location
   virtual_network_enabled = var.ir_virtual_network_enabled
+
+  # Enable interactive authoring
+  time_to_live_min = 60
+}
+
+resource "azurerm_data_factory_managed_private_endpoint" "lake" {
+  name               = "example"
+  data_factory_id    = azurerm_data_factory.default.id
+  target_resource_id = var.storage_account_id
+  subresource_name   = "dfs"
 }
