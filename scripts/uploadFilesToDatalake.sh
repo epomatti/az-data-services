@@ -4,6 +4,8 @@ basedir="data/files"
 filesystem="myfilesystem001"
 accountName="dlsdataboss"
 
-az storage fs file upload -s "$basedir/addresses.csv" -p addresses.csv  -f $filesystem --account-name $accountName  --auth-mode login -o none
-az storage fs file upload -s "$basedir/contact.xml" -p contact.xml -f $filesystem --account-name $accountName  --auth-mode login -o none
-az storage fs file upload -s "$basedir/product.json" -p product.json  -f $filesystem --account-name $accountName  --auth-mode login -o none
+list=("addresses.csv" "contact.xml" "product.json")
+for file in "${list[@]}"; do
+   echo $file
+   az storage fs file upload -s "$basedir/$file" -p $file  -f $filesystem --account-name $accountName --auth-mode login -o none
+done
