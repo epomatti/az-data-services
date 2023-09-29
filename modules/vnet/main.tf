@@ -1,3 +1,11 @@
+locals {
+  databricks_service_delegation_actions = [
+    "Microsoft.Network/virtualNetworks/subnets/join/action",
+    "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+    "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"
+  ]
+}
+
 resource "azurerm_virtual_network" "default" {
   name                = "vnet-${var.workload}"
   address_space       = ["10.0.0.0/16"]
@@ -19,17 +27,12 @@ resource "azurerm_subnet" "databricks_public" {
   resource_group_name  = var.group
   virtual_network_name = azurerm_virtual_network.default.name
   address_prefixes     = ["10.0.10.0/24"]
-  # service_endpoints    = ["Microsoft.Sql", "Microsoft.Storage"]
-  # service_endpoints = ["Microsoft.Storage"]
+
   delegation {
-    name = "databricks"
+    name = "databricks-public"
     service_delegation {
-      name = "Microsoft.Databricks/workspaces"
-      actions = [
-        "Microsoft.Network/virtualNetworks/subnets/join/action",
-        "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
-        "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"
-      ]
+      name    = "Microsoft.Databricks/workspaces"
+      actions = local.databricks_service_delegation_actions
     }
   }
 }
@@ -39,21 +42,17 @@ resource "azurerm_subnet" "databricks_private" {
   resource_group_name  = var.group
   virtual_network_name = azurerm_virtual_network.default.name
   address_prefixes     = ["10.0.11.0/24"]
-  # service_endpoints    = ["Microsoft.Sql", "Microsoft.Storage"]
-  # service_endpoints = ["Microsoft.Storage"]
 
   delegation {
-    name = "databricks"
+    name = "databricks-private"
     service_delegation {
-      name = "Microsoft.Databricks/workspaces"
-      actions = [
-        "Microsoft.Network/virtualNetworks/subnets/join/action",
-        "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
-        "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"
-      ]
+      name    = "Microsoft.Databricks/workspaces"
+      actions = local.databricks_service_delegation_actions
     }
   }
 }
+
+### NSG ###
 
 resource "azurerm_network_security_group" "default" {
   name                = "nsg-${var.workload}"
