@@ -6,6 +6,16 @@ In this demo a solution named **DataBoss** will be used to connect and apply Azu
 dig +short myip.opendns.com @resolver1.opendns.com
 ```
 
+```sh
+terraform init
+terraform apply -auto-approve
+```
+
+```sh
+bash scripts/getAzCopy.sh
+```
+
+
 - [] Private endpoints
 - [] Managed private network
 - [] Consume IP addresses
@@ -15,6 +25,8 @@ dig +short myip.opendns.com @resolver1.opendns.com
 
 Enable IR interactive authoring
 Approve the private link
+
+
 
 https://learn.microsoft.com/en-us/azure/data-factory/managed-virtual-network-private-endpoint#managed-private-endpoints
 https://learn.microsoft.com/en-us/azure/data-factory/concepts-integration-runtime
