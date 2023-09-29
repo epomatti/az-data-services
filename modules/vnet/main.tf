@@ -15,19 +15,30 @@ resource "azurerm_subnet" "default" {
 }
 
 resource "azurerm_subnet" "databricks_public" {
-  name                 = "default"
+  name                 = "Subnet-Databricks-Public"
   resource_group_name  = var.group
   virtual_network_name = azurerm_virtual_network.default.name
-  address_prefixes     = ["10.0.2.0/24"]
+  address_prefixes     = ["10.0.10.0/24"]
   # service_endpoints    = ["Microsoft.Sql", "Microsoft.Storage"]
   # service_endpoints = ["Microsoft.Storage"]
+  delegation {
+    name = "databricks"
+    service_delegation {
+      name = "Microsoft.Databricks/workspaces"
+      actions = [
+        "Microsoft.Network/virtualNetworks/subnets/join/action",
+        "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+        "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"
+      ]
+    }
+  }
 }
 
 resource "azurerm_subnet" "databricks_private" {
-  name                 = "default"
+  name                 = "Subnet-Databricks-Private"
   resource_group_name  = var.group
   virtual_network_name = azurerm_virtual_network.default.name
-  address_prefixes     = ["10.0.2.0/24"]
+  address_prefixes     = ["10.0.11.0/24"]
   # service_endpoints    = ["Microsoft.Sql", "Microsoft.Storage"]
   # service_endpoints = ["Microsoft.Storage"]
 
@@ -35,6 +46,11 @@ resource "azurerm_subnet" "databricks_private" {
     name = "databricks"
     service_delegation {
       name = "Microsoft.Databricks/workspaces"
+      actions = [
+        "Microsoft.Network/virtualNetworks/subnets/join/action",
+        "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action",
+        "Microsoft.Network/virtualNetworks/subnets/unprepareNetworkPolicies/action"
+      ]
     }
   }
 }
@@ -47,7 +63,7 @@ resource "azurerm_network_security_group" "default" {
 
 resource "azurerm_network_security_rule" "inbound" {
   name                        = "allow-inbound"
-  priority                    = 100
+  priority                    = 103
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "*"
@@ -61,7 +77,7 @@ resource "azurerm_network_security_rule" "inbound" {
 
 resource "azurerm_network_security_rule" "outbound" {
   name                        = "allow-outbound"
-  priority                    = 100
+  priority                    = 105
   direction                   = "Outbound"
   access                      = "Allow"
   protocol                    = "*"

@@ -12,8 +12,11 @@ resource "azurerm_databricks_workspace" "default" {
   network_security_group_rules_required = "AllRules"
 
   custom_parameters {
-    virtual_network_id = var.vnet_id
-    no_public_ip       = var.vnet_no_public_ip
-    public_subnet_name = "databricks-public"
+    virtual_network_id                                   = var.vnet_id
+    no_public_ip                                         = var.vnet_no_public_ip
+    public_subnet_name                                   = var.databricks_vnet_public_subnet_name
+    private_subnet_name                                  = var.databricks_vnet_private_subnet_name
+    public_subnet_network_security_group_association_id  = var.databricks_vnet_public_subnet_nsg_association_id
+    private_subnet_network_security_group_association_id = var.databricks_vnet_private_subnet_nsg_association_id
   }
 }

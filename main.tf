@@ -58,10 +58,10 @@ module "databricks" {
   sku                           = var.dbw_sku
   public_network_access_enabled = var.dbw_public_network_access_enabled
 
-  vnet_id                                                              = module.vnet.vnet_id
-  vnet_no_public_ip                                                    = var.dbw_vnet_no_public_ip
-  databricks_vnet_public_subnet_name                                   = module.vnet.databricks_public_subnet_name
-  databricks_vnet_private_subnet_name                                  = module.vnet.databricks_private_subnet_name
-  databricks_vnet_public_subnet_network_security_group_association_id  = module.vnet.databricks_public_subnet_network_security_group_association_id
-  databricks_vnet_private_subnet_network_security_group_association_id = module.vnet.databricks_private_subnet_network_security_group_association_id
+  vnet_id                                           = module.vnet.vnet_id
+  vnet_no_public_ip                                 = var.dbw_vnet_no_public_ip
+  databricks_vnet_public_subnet_name                = module.vnet.databricks_public_subnet_name
+  databricks_vnet_private_subnet_name               = module.vnet.databricks_private_subnet_name
+  databricks_vnet_public_subnet_nsg_association_id  = module.vnet.databricks_public_subnet_nsg_association_id
+  databricks_vnet_private_subnet_nsg_association_id = module.vnet.databricks_private_subnet_nsg_association_id
 }

@@ -34,10 +34,10 @@ variable "databricks_vnet_private_subnet_name" {
   type = string
 }
 
-variable "databricks_vnet_public_subnet_network_security_group_association_id" {
+variable "databricks_vnet_public_subnet_nsg_association_id" {
   type = string
 }
 
-variable "databricks_vnet_private_subnet_network_security_group_association_id" {
+variable "databricks_vnet_private_subnet_nsg_association_id" {
   type = string
 }
