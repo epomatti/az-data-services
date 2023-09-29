@@ -22,3 +22,16 @@ variable "adf_public_network_enabled" {
 variable "adf_ir_virtual_network_enabled" {
   type = bool
 }
+
+### Databricks ###
+variable "dbw_public_network_access_enabled" {
+  type = string
+}
+
+variable "dbw_sku" {
+  type = string
+}
+
+variable "dbw_vnet_no_public_ip" {
+  type = bool
+}

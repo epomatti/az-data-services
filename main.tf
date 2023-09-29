@@ -48,3 +48,20 @@ module "adf" {
   ir_virtual_network_enabled      = var.adf_ir_virtual_network_enabled
   storage_account_id              = module.lake.storage_account_id
 }
+
+module "databricks" {
+  source   = "./modules/databricks"
+  workload = local.workload
+  group    = azurerm_resource_group.default.name
+  location = azurerm_resource_group.default.location
+
+  sku                           = var.dbw_sku
+  public_network_access_enabled = var.dbw_public_network_access_enabled
+
+  vnet_id                                                              = module.vnet.vnet_id
+  vnet_no_public_ip                                                    = var.dbw_vnet_no_public_ip
+  databricks_vnet_public_subnet_name                                   = module.vnet.databricks_public_subnet_name
+  databricks_vnet_private_subnet_name                                  = module.vnet.databricks_private_subnet_name
+  databricks_vnet_public_subnet_network_security_group_association_id  = module.vnet.databricks_public_subnet_network_security_group_association_id
+  databricks_vnet_private_subnet_network_security_group_association_id = module.vnet.databricks_private_subnet_network_security_group_association_id
+}
