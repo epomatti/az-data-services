@@ -53,3 +53,8 @@ variable "mssql_admin_login_password" {
 variable "mssql_public_network_access_enabled" {
   type = bool
 }
+
+### Outbound Storage ###
+variable "outbound_storage_public_network_access_enabled" {
+  type = bool
+}

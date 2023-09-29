@@ -20,7 +20,8 @@ resource "azurerm_storage_account" "lake" {
     default_action             = "Deny"
     ip_rules                   = [var.public_ip_address_to_allow]
     virtual_network_subnet_ids = [var.subnet_id]
-    bypass                     = ["AzureServices", "Metrics"]
+    # bypass                     = ["AzureServices", "Metrics"]
+    bypass = ["AzureServices"]
   }
 }
 
