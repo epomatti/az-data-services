@@ -66,7 +66,8 @@ module "adf" {
   ir_virtual_network_enabled      = var.adf_ir_virtual_network_enabled
   storage_account_id              = module.datalake.storage_account_id
 
-  // TODO: Managed Private Endpoint
+  # External Storage
+  external_storage_connection_string = module.external_storage.primary_blob_connection_string
 }
 
 module "databricks" {

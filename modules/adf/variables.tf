@@ -42,3 +42,10 @@ variable "datalake_primary_access_key" {
   type      = string
   sensitive = true
 }
+
+
+### External Storage ###
+variable "external_storage_connection_string" {
+  type      = string
+  sensitive = true
+}
