@@ -10,6 +10,14 @@ variable "workload" {
   type = string
 }
 
+variable "sku" {
+  type = string
+}
+
+variable "max_size_gb" {
+  type = number
+}
+
 variable "admin_admin" {
   type = string
 }

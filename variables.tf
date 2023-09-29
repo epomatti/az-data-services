@@ -41,6 +41,10 @@ variable "mssql_sku" {
   type = string
 }
 
+variable "mssql_max_size_gb" {
+  type = number
+}
+
 variable "mssql_admin_login" {
   type = string
 }
