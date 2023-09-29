@@ -24,9 +24,10 @@ module "vnet" {
 }
 
 module "lake" {
-  source    = "./modules/datalake"
-  workload  = local.workload
-  group     = azurerm_resource_group.default.name
-  location  = azurerm_resource_group.default.location
-  subnet_id = module.vnet.subnet
+  source                     = "./modules/datalake"
+  workload                   = local.workload
+  group                      = azurerm_resource_group.default.name
+  location                   = azurerm_resource_group.default.location
+  subnet_id                  = module.vnet.subnet
+  public_ip_address_to_allow = var.public_ip_address_to_allow
 }

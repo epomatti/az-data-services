@@ -11,4 +11,5 @@ resource "azurerm_subnet" "default" {
   virtual_network_name = azurerm_virtual_network.default.name
   address_prefixes     = ["10.0.2.0/24"]
   # service_endpoints    = ["Microsoft.Sql", "Microsoft.Storage"]
+  service_endpoints = ["Microsoft.Storage"]
 }
