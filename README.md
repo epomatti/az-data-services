@@ -11,5 +11,10 @@ dig +short myip.opendns.com @resolver1.opendns.com
 - [] Consume IP addresses
 - [] Internal runtime
 - [] Code repository
+- [] AD permissions
+
+Enable IR interactive authoring
+Approve the private link
 
 https://learn.microsoft.com/en-us/azure/data-factory/managed-virtual-network-private-endpoint#managed-private-endpoints
+https://learn.microsoft.com/en-us/azure/data-factory/concepts-integration-runtime

@@ -8,10 +8,11 @@ resource "azurerm_data_factory" "default" {
 }
 
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "lake" {
-  name                = "Lake"
-  data_factory_id     = azurerm_data_factory.default.id
-  url                 = var.datalake_primary_dfs_endpoint
-  storage_account_key = var.datalake_primary_access_key
+  name                     = "Lake"
+  data_factory_id          = azurerm_data_factory.default.id
+  url                      = var.datalake_primary_dfs_endpoint
+  storage_account_key      = var.datalake_primary_access_key
+  integration_runtime_name = azurerm_data_factory_integration_runtime_azure.default.name
 }
 
 resource "azurerm_data_factory_integration_runtime_azure" "default" {
@@ -19,14 +20,12 @@ resource "azurerm_data_factory_integration_runtime_azure" "default" {
   data_factory_id         = azurerm_data_factory.default.id
   location                = var.location
   virtual_network_enabled = var.ir_virtual_network_enabled
-
-  # Enable interactive authoring
-  time_to_live_min = 60
+  time_to_live_min        = 60
 }
 
 resource "azurerm_data_factory_managed_private_endpoint" "lake" {
-  name               = "example"
+  name               = "datalake"
   data_factory_id    = azurerm_data_factory.default.id
   target_resource_id = var.storage_account_id
-  subresource_name   = "dfs"
+  subresource_name   = "dfs"  
 }
