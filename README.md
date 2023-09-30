@@ -15,7 +15,8 @@ terraform init
 terraform apply -auto-approve
 ```
 
-✋ You'll have to manually approve the managed private endpoints created by ADF.
+**🛑👉 You'll have to manually approve the managed private endpoints created by ADF.**
+ 
 
 ```sh
 bash scripts/uploadFilesToDataLake.sh
