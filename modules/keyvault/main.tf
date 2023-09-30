@@ -19,6 +19,12 @@ resource "azurerm_key_vault_access_policy" "databricks" {
   secret_permissions = ["Delete", "Get", "List", "Set"]
 }
 
+resource "azurerm_key_vault_secret" "sql_database_admin_username" {
+  name         = "mssqlusername"
+  value        = var.mssql_admin_login
+  key_vault_id = azurerm_key_vault.databricks.id
+}
+
 resource "azurerm_key_vault_secret" "sql_database_admin_password" {
   name         = "mssqlpassword"
   value        = var.mssql_admin_login_password

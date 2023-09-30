@@ -32,11 +32,19 @@ resource "databricks_cluster" "shared_autoscaling" {
 }
 
 resource "databricks_secret_scope" "kv" {
-  name                     = "keyvault-managed"
+  name = "keyvault-managed"
   # initial_manage_principal = ""
 
   keyvault_metadata {
     resource_id = var.keyvault_resource_id
     dns_name    = var.keyvault_uri
   }
+}
+
+data "databricks_current_user" "me" {
+}
+
+resource "databricks_notebook" "keyvault_scala" {
+  source = "${path.module}/mssql.scala"
+  path   = "${data.databricks_current_user.me.home}/kv-scala"
 }
