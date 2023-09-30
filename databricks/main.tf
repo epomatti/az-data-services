@@ -30,3 +30,13 @@ resource "databricks_cluster" "shared_autoscaling" {
     max_workers = 50
   }
 }
+
+resource "databricks_secret_scope" "kv" {
+  name = "keyvault-managed"
+  # initial_manage_principal = 
+
+  keyvault_metadata {
+    resource_id = var.keyvault_resource_id
+    dns_name    = var.keyvault_uri
+  }
+}

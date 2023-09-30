@@ -102,7 +102,19 @@ module "mssql" {
   subnet_id                     = module.vnet.default_subnet_id
 }
 
+module "keyvault" {
+  source   = "./modules/keyvault"
+  workload = local.workload
+  group    = azurerm_resource_group.default.name
+  location = azurerm_resource_group.default.location
+}
+
 resource "local_file" "databricks_tfvars" {
-  content  = "workspace_url = \"${module.databricks.workspace_url}\"\n"
+  content = <<EOF
+workspace_url        = "${module.databricks.workspace_url}"
+keyvault_resource_id = "${module.keyvault.id}"
+keyvault_uri         = "${module.keyvault.vault_uri}"
+EOF
+
   filename = "${path.module}/databricks/.auto.tfvars"
 }
