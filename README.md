@@ -1,27 +1,37 @@
-# az-data-services-demo
+# Azure data services big demo
 
-In this demo a solution named **DataBoss** will be used to connect and apply Azure data services.
+In this demo a solution named Databoss will be used to connect and apply Azure data services.
+
+## 🚀 Create the resources
+
+Copy the '.auto.tfvars' template:
 
 ```
 cp templates/template.tf .auto.tfvars
 ```
 
+Check your public IP address to be added in the firewalls allow rules:
+
 ```sh
 dig +short myip.opendns.com @resolver1.opendns.com
 ```
+
+Add your public IP address to the `public_ip_address_to_allow` variable.
+
+Apply and create the infrastructure:
 
 ```sh
 terraform init
 terraform apply -auto-approve
 ```
 
-Approve the managed private endpoints:
+Approve the managed private endpoints for ADF:
 
 ```sh
 bash scripts/approveManagedPrivateEndpoints.sh
 ```
 
-### Data setup
+## 💾 Setup the data
 
 Upload some test data:
 
@@ -43,18 +53,21 @@ az datafactory pipeline create-run --resource-group rg-databoss \
     --name Adfv2CopyExertnalFileToLake --factory-name adf-databoss
 ```
 
-### Databricks
+## 🧰 Configure the Databricks cluster
 
-The Azure setup will automatically generate the `databricks/.auto.tfvars` file to configure Databricks.
+The previous Azure run should have created the `databricks/.auto.tfvars` file to configure Databricks.
 
-Apply the data bricks configuration:
+Apply the Databricks configuration:
 
-> 💡 You need to login to Databricks once before running this
+> 💡 You need to login to Databricks once before running this command.
 
 ```sh
 terraform -chdir="databricks" init
 terraform -chdir="databricks" apply -auto-approve
 ```
+
+Check the workspace files and run the test notebooks and make sure that connectivity is complete.
+
 
 
 - [] Private endpoints
@@ -74,9 +87,8 @@ https://learn.microsoft.com/en-us/azure/data-factory/concepts-integration-runtim
 https://learn.microsoft.com/en-us/azure/databricks/storage/azure-storage
 https://learn.microsoft.com/en-us/azure/databricks/administration-guide/users-groups/service-principals
 
----
 
-### Clean-up
+## 🧹 Clean-up
 
 Delete the Databricks configuration:
 
