@@ -2,7 +2,7 @@
 
 In this demo a solution named Databoss will be used to connect and apply Azure data services.
 
-## 🚀 Create the resources
+## 🚀 1- Create the resources
 
 Copy the '.auto.tfvars' template:
 
@@ -25,7 +25,7 @@ terraform init
 terraform apply -auto-approve
 ```
 
-Approve the managed private endpoints for ADF:
+Once the `apply` phase is complete, approve the managed private endpoints for ADF:
 
 ```sh
 bash scripts/approveManagedPrivateEndpoints.sh
