@@ -7,6 +7,14 @@ resource "azurerm_data_factory" "default" {
   public_network_enabled          = var.public_network_enabled
 }
 
+### Integration Runtime ###
+resource "azurerm_data_factory_integration_runtime_azure" "default" {
+  name                    = "Azure001"
+  data_factory_id         = azurerm_data_factory.default.id
+  location                = var.location
+  virtual_network_enabled = var.ir_virtual_network_enabled
+  time_to_live_min        = 60
+}
 
 ### Data Lake ###
 resource "azurerm_data_factory_linked_service_data_lake_storage_gen2" "lake" {
@@ -29,15 +37,4 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "external" {
   name              = "external-storage"
   data_factory_id   = azurerm_data_factory.default.id
   connection_string = var.external_storage_connection_string
-}
-
-
-### Integration Runtime ###
-
-resource "azurerm_data_factory_integration_runtime_azure" "default" {
-  name                    = "Azure001"
-  data_factory_id         = azurerm_data_factory.default.id
-  location                = var.location
-  virtual_network_enabled = var.ir_virtual_network_enabled
-  time_to_live_min        = 60
 }
