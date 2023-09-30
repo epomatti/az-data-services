@@ -12,4 +12,5 @@ spark.conf.set(f"fs.azure.account.oauth2.client.id.{storage_name}.dfs.core.windo
 spark.conf.set(f"fs.azure.account.oauth2.client.secret.{storage_name}.dfs.core.windows.net", service_credential)
 spark.conf.set(f"fs.azure.account.oauth2.client.endpoint.{storage_name}.dfs.core.windows.net", f"https://login.microsoftonline.com/{tenant_id}/oauth2/token")
 
-df2 = spark.read.load("abfss://myfilesystem001@dlsdataboss.dfs.core.windows.net/addresses.csv")
+csv = spark.read.load("abfss://myfilesystem001@dlsdataboss.dfs.core.windows.net/addresses.csv", format="CSV")
+display(csv)

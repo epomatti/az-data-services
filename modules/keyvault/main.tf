@@ -15,6 +15,11 @@ resource "azurerm_key_vault" "databricks" {
     secret_permissions = ["Delete", "Get", "List", "Set"]
   }
 
+  # FIXME: Should be controlled with AzureDatabricks user
+  lifecycle {
+    ignore_changes = [ access_policy ]
+  }
+
   # TODO: Network
 }
 
