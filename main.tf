@@ -112,6 +112,7 @@ module "keyvault" {
 
   mssql_admin_login          = var.mssql_admin_login
   mssql_admin_login_password = var.mssql_admin_login_password
+  datalake_connection_string = module.datalake.primary_connection_string
 }
 
 resource "local_file" "databricks_tfvars" {
@@ -119,6 +120,7 @@ resource "local_file" "databricks_tfvars" {
 workspace_url        = "${module.databricks.workspace_url}"
 keyvault_resource_id = "${module.keyvault.id}"
 keyvault_uri         = "${module.keyvault.vault_uri}"
+mssql_fqdn           = "${module.mssql.fully_qualified_domain_name}"
 EOF
 
   filename = "${path.module}/databricks/.auto.tfvars"

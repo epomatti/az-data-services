@@ -14,3 +14,7 @@ output "primary_dfs_endpoint" {
 output "secondary_dfs_endpoint" {
   value = azurerm_storage_account.lake.secondary_dfs_endpoint
 }
+
+output "primary_connection_string" {
+  value = azurerm_storage_account.lake.primary_connection_string
+}

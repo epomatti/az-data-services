@@ -30,3 +30,9 @@ resource "azurerm_key_vault_secret" "sql_database_admin_password" {
   value        = var.mssql_admin_login_password
   key_vault_id = azurerm_key_vault.databricks.id
 }
+
+resource "azurerm_key_vault_secret" "datalake_connection_string" {
+  name         = "dlsconnectionstring"
+  value        = var.datalake_connection_string
+  key_vault_id = azurerm_key_vault.databricks.id
+}

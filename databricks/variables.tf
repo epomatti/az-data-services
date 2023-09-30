@@ -9,3 +9,7 @@ variable "keyvault_resource_id" {
 variable "keyvault_uri" {
   type = string
 }
+
+variable "mssql_fqdn" {
+  type = string
+}

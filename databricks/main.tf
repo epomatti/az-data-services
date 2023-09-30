@@ -29,6 +29,10 @@ resource "databricks_cluster" "shared_autoscaling" {
     min_workers = 1
     max_workers = 50
   }
+
+  spark_env_vars = {
+    MSSQL_FQDN = "${var.mssql_fqdn}"
+  }
 }
 
 resource "databricks_library" "mssql_jdbc" {

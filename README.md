@@ -18,6 +18,8 @@ terraform apply -auto-approve
 **🛑👉 You'll have to manually approve the managed private endpoints created by ADF.**
  
 
+###
+
 ```sh
 bash scripts/uploadFilesToDataLake.sh
 
@@ -30,6 +32,11 @@ az datafactory pipeline create-run --resource-group rg-databoss \
     --name Adfv2CopyExertnalFileToLake --factory-name adf-databoss
 ```
 
+### Databricks
+
+The Azure setup will automatically generate the `databricks/.auto.tfvars` file to configure Databricks.
+
+Apply the data bricks configuration:
 
 ```sh
 terraform -chdir="databricks" init
