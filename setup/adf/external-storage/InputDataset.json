@@ -1,0 +1,20 @@
+{
+  "linkedServiceName": {
+    "referenceName": "external-storage",
+    "type": "LinkedServiceReference"
+  },
+  "annotations": [],
+  "type": "DelimitedText",
+  "typeProperties": {
+    "location": {
+      "type": "AzureBlobStorageLocation",
+      "fileName": "export.csv",
+      "container": "external"
+    },
+    "columnDelimiter": ",",
+    "escapeChar": "\\",
+    "firstRowAsHeader": false,
+    "quoteChar": "\""
+  },
+  "schema": []
+}
