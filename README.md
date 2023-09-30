@@ -32,6 +32,13 @@ az datafactory pipeline-run show --resource-group ADFQuickStartRG \
     --factory-name ADFTutorialFactory --run-id 00000000-0000-0000-0000-000000000000
 ```
 
+
+```sh
+terraform -chdir="databricks" init
+terraform -chdir="databricks" apply -auto-approve
+```
+
+
 - [] Private endpoints
 - [] Managed private network
 - [] Consume IP addresses

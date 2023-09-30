@@ -101,3 +101,8 @@ module "mssql" {
   admin_login_password          = var.mssql_admin_login_password
   subnet_id                     = module.vnet.default_subnet_id
 }
+
+resource "local_file" "databricks_tfvars" {
+  content  = "workspace_url = \"${module.databricks.workspace_url}\"\n"
+  filename = "${path.module}/databricks/.auto.tfvars"
+}
