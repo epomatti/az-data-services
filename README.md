@@ -2,7 +2,7 @@
 
 In this demo a solution named Databoss will be used to connect and apply Azure data services.
 
-## 🚀 1- Create the resources
+## 1 - Create the resources 🚀
 
 Copy the '.auto.tfvars' template:
 
