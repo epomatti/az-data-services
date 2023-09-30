@@ -107,6 +107,8 @@ module "keyvault" {
   workload = local.workload
   group    = azurerm_resource_group.default.name
   location = azurerm_resource_group.default.location
+
+  mssql_admin_login_password = var.mssql_admin_login_password
 }
 
 resource "local_file" "databricks_tfvars" {

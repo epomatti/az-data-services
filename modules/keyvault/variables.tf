@@ -9,3 +9,8 @@ variable "location" {
 variable "workload" {
   type = string
 }
+
+variable "mssql_admin_login_password" {
+  type      = string
+  sensitive = true
+}
