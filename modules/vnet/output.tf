@@ -6,6 +6,14 @@ output "default_subnet_id" {
   value = azurerm_subnet.default.id
 }
 
+output "databricks_public_subnet_id" {
+  value = azurerm_subnet.databricks_public.id
+}
+
+output "databricks_private_subnet_id" {
+  value = azurerm_subnet.databricks_private.id
+}
+
 ### Databricks ###
 output "databricks_public_subnet_name" {
   value = azurerm_subnet.databricks_public.name

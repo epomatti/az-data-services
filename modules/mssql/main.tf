@@ -33,8 +33,20 @@ resource "azurerm_mssql_firewall_rule" "local" {
   end_ip_address   = var.public_ip_address_to_allow
 }
 
-resource "azurerm_mssql_virtual_network_rule" "vnet" {
-  name      = "sql-vnet-rule"
+resource "azurerm_mssql_virtual_network_rule" "default" {
+  name      = "default-subnet"
   server_id = azurerm_mssql_server.default.id
-  subnet_id = var.subnet_id
+  subnet_id = var.default_subnet_id
+}
+
+resource "azurerm_mssql_virtual_network_rule" "databricks_public" {
+  name      = "databricks-public-subnet"
+  server_id = azurerm_mssql_server.default.id
+  subnet_id = var.databricks_public_subnet_id
+}
+
+resource "azurerm_mssql_virtual_network_rule" "databricks_private" {
+  name      = "databricks-private-subnet"
+  server_id = azurerm_mssql_server.default.id
+  subnet_id = var.databricks_private_subnet_id
 }

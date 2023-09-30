@@ -31,9 +31,16 @@ resource "databricks_cluster" "shared_autoscaling" {
   }
 }
 
+resource "databricks_library" "mssql_jdbc" {
+  cluster_id = databricks_cluster.shared_autoscaling.id
+  maven {
+    coordinates = "com.microsoft.sqlserver:mssql-jdbc:12.4.1.jre11"
+  }
+}
+
+# TODO: initial_manage_principal
 resource "databricks_secret_scope" "kv" {
   name = "keyvault-managed"
-  # initial_manage_principal = ""
 
   keyvault_metadata {
     resource_id = var.keyvault_resource_id

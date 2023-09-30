@@ -26,6 +26,7 @@ resource "azurerm_subnet" "databricks_public" {
   resource_group_name  = var.group
   virtual_network_name = azurerm_virtual_network.default.name
   address_prefixes     = ["10.0.10.0/24"]
+  service_endpoints    = ["Microsoft.Sql", "Microsoft.Storage"]
 
   delegation {
     name = "databricks-public"
@@ -41,6 +42,7 @@ resource "azurerm_subnet" "databricks_private" {
   resource_group_name  = var.group
   virtual_network_name = azurerm_virtual_network.default.name
   address_prefixes     = ["10.0.11.0/24"]
+  service_endpoints    = ["Microsoft.Sql", "Microsoft.Storage"]
 
   delegation {
     name = "databricks-private"

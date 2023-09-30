@@ -99,7 +99,9 @@ module "mssql" {
   public_network_access_enabled = var.mssql_public_network_access_enabled
   admin_admin                   = var.mssql_admin_login
   admin_login_password          = var.mssql_admin_login_password
-  subnet_id                     = module.vnet.default_subnet_id
+  default_subnet_id             = module.vnet.default_subnet_id
+  databricks_public_subnet_id   = module.vnet.databricks_public_subnet_id
+  databricks_private_subnet_id  = module.vnet.databricks_private_subnet_id
 }
 
 module "keyvault" {
