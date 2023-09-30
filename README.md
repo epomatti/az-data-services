@@ -65,10 +65,10 @@ Enable IR interactive authoring
 Approve the private link
 
 
-
+https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-use-databricks-spark
 https://learn.microsoft.com/en-us/azure/data-factory/managed-virtual-network-private-endpoint#managed-private-endpoints
 https://learn.microsoft.com/en-us/azure/data-factory/concepts-integration-runtime
-
+https://learn.microsoft.com/en-us/azure/databricks/storage/azure-storage
 
 ---
 

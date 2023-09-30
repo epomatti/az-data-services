@@ -36,3 +36,9 @@ resource "azurerm_key_vault_secret" "datalake_connection_string" {
   value        = var.datalake_connection_string
   key_vault_id = azurerm_key_vault.databricks.id
 }
+
+resource "azurerm_key_vault_secret" "datalake_access_key" {
+  name         = "dlsaccesskey"
+  value        = var.datalake_access_key
+  key_vault_id = azurerm_key_vault.databricks.id
+}

@@ -23,3 +23,8 @@ variable "datalake_connection_string" {
   type      = string
   sensitive = true
 }
+
+variable "datalake_access_key" {
+  type      = string
+  sensitive = true
+}

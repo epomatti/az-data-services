@@ -13,3 +13,7 @@ variable "keyvault_uri" {
 variable "mssql_fqdn" {
   type = string
 }
+
+variable "dls_name" {
+  type = string
+}

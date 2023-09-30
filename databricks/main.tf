@@ -32,6 +32,7 @@ resource "databricks_cluster" "shared_autoscaling" {
 
   spark_env_vars = {
     MSSQL_FQDN = "${var.mssql_fqdn}"
+    DLS_NAME   = "${var.dls_name}"
   }
 }
 
@@ -56,6 +57,11 @@ data "databricks_current_user" "me" {
 }
 
 resource "databricks_notebook" "keyvault_scala" {
-  source = "${path.module}/mssql.scala"
+  source = "${path.module}/notebooks/mssql.scala"
   path   = "${data.databricks_current_user.me.home}/kv-scala"
+}
+
+resource "databricks_notebook" "lake" {
+  source = "${path.module}/notebooks/dls.py"
+  path   = "${data.databricks_current_user.me.home}/datalake"
 }

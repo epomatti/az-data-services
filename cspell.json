@@ -1,7 +1,8 @@
 {
     "version": "0.2",
     "ignorePaths": [
-        "*.scala"
+        "*.scala",
+        "*.py"
     ],
     "dictionaryDefinitions": [],
     "dictionaries": [],
