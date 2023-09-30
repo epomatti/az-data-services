@@ -32,8 +32,8 @@ resource "databricks_cluster" "shared_autoscaling" {
 }
 
 resource "databricks_secret_scope" "kv" {
-  name = "keyvault-managed"
-  # initial_manage_principal = 
+  name                     = "keyvault-managed"
+  # initial_manage_principal = ""
 
   keyvault_metadata {
     resource_id = var.keyvault_resource_id
