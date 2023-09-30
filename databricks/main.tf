@@ -31,8 +31,10 @@ resource "databricks_cluster" "shared_autoscaling" {
   }
 
   spark_env_vars = {
-    MSSQL_FQDN = "${var.mssql_fqdn}"
-    DLS_NAME   = "${var.dls_name}"
+    MSSQL_FQDN        = "${var.mssql_fqdn}"
+    DLS_NAME          = "${var.dls_name}"
+    SP_TENANT_ID      = "${var.sp_tenant_id}"
+    SP_APPLICATION_ID = "${var.sp_application_id}"
   }
 }
 
@@ -44,6 +46,8 @@ resource "databricks_library" "mssql_jdbc" {
 }
 
 # TODO: initial_manage_principal
+
+# TODO: Implement service principal
 resource "databricks_secret_scope" "kv" {
   name = "keyvault-managed"
 

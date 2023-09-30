@@ -1,5 +1,4 @@
-data "azurerm_client_config" "current" {
-}
+data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "databricks" {
   name                     = "kv-${var.workload}789"
@@ -9,14 +8,14 @@ resource "azurerm_key_vault" "databricks" {
   purge_protection_enabled = false
   sku_name                 = "standard"
 
-  # TODO: Network
-}
+  access_policy {
+    tenant_id = data.azurerm_client_config.current.tenant_id
+    object_id = data.azurerm_client_config.current.object_id
 
-resource "azurerm_key_vault_access_policy" "databricks" {
-  key_vault_id       = azurerm_key_vault.databricks.id
-  tenant_id          = data.azurerm_client_config.current.tenant_id
-  object_id          = data.azurerm_client_config.current.object_id
-  secret_permissions = ["Delete", "Get", "List", "Set"]
+    secret_permissions = ["Delete", "Get", "List", "Set"]
+  }
+
+  # TODO: Network
 }
 
 resource "azurerm_key_vault_secret" "sql_database_admin_username" {
@@ -40,5 +39,11 @@ resource "azurerm_key_vault_secret" "datalake_connection_string" {
 resource "azurerm_key_vault_secret" "datalake_access_key" {
   name         = "dlsaccesskey"
   value        = var.datalake_access_key
+  key_vault_id = azurerm_key_vault.databricks.id
+}
+
+resource "azurerm_key_vault_secret" "databricks_sp_secret" {
+  name         = "dlsserviceprincipalsecret"
+  value        = var.databricks_sp_secret
   key_vault_id = azurerm_key_vault.databricks.id
 }

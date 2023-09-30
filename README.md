@@ -15,8 +15,11 @@ terraform init
 terraform apply -auto-approve
 ```
 
-**🛑👉 You'll have to manually approve the managed private endpoints created by ADF.**
- 
+Approve the managed private endpoints:
+
+```sh
+bash scripts/approveManagedPrivateEndpoints.sh
+```
 
 ### Data setup
 
@@ -69,6 +72,7 @@ https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-use-data
 https://learn.microsoft.com/en-us/azure/data-factory/managed-virtual-network-private-endpoint#managed-private-endpoints
 https://learn.microsoft.com/en-us/azure/data-factory/concepts-integration-runtime
 https://learn.microsoft.com/en-us/azure/databricks/storage/azure-storage
+https://learn.microsoft.com/en-us/azure/databricks/administration-guide/users-groups/service-principals
 
 ---
 
@@ -86,10 +90,8 @@ Delete ADF objects:
 bash scripts/deleteADFObjects.sh
 ```
 
-terraform
-
 Delete the Azure infrastructure:
 
 ```sh
-terraform -chdir="databricks" destroy -auto-approve
+terraform destroy -auto-approve
 ```

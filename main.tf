@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/azurerm"
       version = "3.75.0"
     }
+    azuread = {
+      source  = "hashicorp/azuread"
+      version = "2.43.0"
+    }
   }
 }
 
@@ -23,16 +27,23 @@ module "vnet" {
   location = azurerm_resource_group.default.location
 }
 
+module "aad" {
+  source = "./modules/aad"
+}
+
 module "datalake" {
   source   = "./modules/datalake"
   workload = local.workload
   group    = azurerm_resource_group.default.name
   location = azurerm_resource_group.default.location
 
-  vnet_id                       = module.vnet.vnet_id
-  subnet_id                     = module.vnet.default_subnet_id
-  public_ip_address_to_allow    = var.public_ip_address_to_allow
-  public_network_access_enabled = var.datalake_public_network_access_enabled
+  vnet_id                                = module.vnet.vnet_id
+  default_subnet_id                      = module.vnet.default_subnet_id
+  databricks_public_subnet_id            = module.vnet.databricks_public_subnet_id
+  databricks_private_subnet_id           = module.vnet.databricks_private_subnet_id
+  public_ip_address_to_allow             = var.public_ip_address_to_allow
+  public_network_access_enabled          = var.datalake_public_network_access_enabled
+  databricks_service_principal_object_id = module.aad.service_principal_object_id
 }
 
 module "external_storage" {
@@ -114,6 +125,7 @@ module "keyvault" {
   mssql_admin_login_password = var.mssql_admin_login_password
   datalake_connection_string = module.datalake.primary_connection_string
   datalake_access_key        = module.datalake.primary_access_key
+  databricks_sp_secret       = module.aad.service_credential_secret_value
 }
 
 resource "local_file" "databricks_tfvars" {
@@ -123,6 +135,8 @@ keyvault_resource_id = "${module.keyvault.id}"
 keyvault_uri         = "${module.keyvault.vault_uri}"
 mssql_fqdn           = "${module.mssql.fully_qualified_domain_name}"
 dls_name             = "${module.datalake.storage_account_name}"
+sp_tenant_id         = "${module.aad.tenant_id}"
+sp_application_id    = "${module.aad.application_id}"
 EOF
 
   filename = "${path.module}/databricks/.auto.tfvars"

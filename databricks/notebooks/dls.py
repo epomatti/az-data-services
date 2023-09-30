@@ -1,30 +1,15 @@
 import os
 
-import datetime
-print(str(datetime.datetime.now()))
+storage_name = os.getenv("DLS_NAME")
+tenant_id = os.getenv("SP_TENANT_ID")
+application_id = os.getenv("SP_APPLICATION_ID")
 
-storage = os.getenv("DLS_NAME")
+service_credential = dbutils.secrets.get(scope="keyvault-managed",key="dlsserviceprincipalsecret")
 
-# spark.conf.set("fs.azure.account.auth.type", "SharedKey")
-# spark.conf.set(
-#     f"fs.azure.account.key.{storage}.dfs.core.windows.net",
-#     dbutils.secrets.get(scope="keyvault-managed", key="dlsaccesskey"))
+spark.conf.set(f"fs.azure.account.auth.type.{storage_name}.dfs.core.windows.net", "OAuth")
+spark.conf.set(f"fs.azure.account.oauth.provider.type.{storage_name}.dfs.core.windows.net", "org.apache.hadoop.fs.azurebfs.oauth2.ClientCredsTokenProvider")
+spark.conf.set(f"fs.azure.account.oauth2.client.id.{storage_name}.dfs.core.windows.net", application_id)
+spark.conf.set(f"fs.azure.account.oauth2.client.secret.{storage_name}.dfs.core.windows.net", service_credential)
+spark.conf.set(f"fs.azure.account.oauth2.client.endpoint.{storage_name}.dfs.core.windows.net", f"https://login.microsoftonline.com/{tenant_id}/oauth2/token")
 
-# spark.conf.set(
-#     "fs.azure.account.key.<storage-account>.dfs.core.windows.net",
-#     dbutils.secrets.get(scope="<scope>", key="<storage-account-access-key>"))\
-
-# spark.read.load("abfss://<container-name>@<storage-account-name>.dfs.core.windows.net/<path-to-data>")
-
-# dbutils.fs.ls("abfss://<container-name>@<storage-account-name>.dfs.core.windows.net/<path-to-data>")
-
-# spark.conf.set("fs.azure.account.key.dlsdataboss.dfs.core.windows.net", "xomuibey0KKTGKJY5oJ0E6jNGNcZvXeXKZ7EqV09F4jJuswCL+G0SA9OzFX6jwKrWomnJhhFozUt+ASt64SAKQ==")
-
-# spark.conf.set(
-#     "fs.azure.account.key.<storage-account>.dfs.core.windows.net",
-#     dbutils.secrets.get(scope="<scope>", key="<storage-account-access-key>"))
-
-# df2 = spark.read.load("abfss://myfilesystem001@dlsdataboss.dfs.core.windows.net/addresses.csv")
-# display(df2)
-
-# dbutils.fs.ls(f"abfss://external@{storage}.dfs.core.windows.net/")a
+df2 = spark.read.load("abfss://myfilesystem001@dlsdataboss.dfs.core.windows.net/addresses.csv")

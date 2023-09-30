@@ -17,3 +17,11 @@ variable "mssql_fqdn" {
 variable "dls_name" {
   type = string
 }
+
+variable "sp_tenant_id" {
+  type = string
+}
+
+variable "sp_application_id" {
+  type = string
+}

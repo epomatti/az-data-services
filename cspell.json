@@ -6,7 +6,11 @@
     ],
     "dictionaryDefinitions": [],
     "dictionaries": [],
-    "words": [],
+    "words": [
+        "databoss",
+        "databricks",
+        "datafactory"
+    ],
     "ignoreWords": [],
     "import": []
 }

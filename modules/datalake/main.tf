@@ -19,9 +19,8 @@ resource "azurerm_storage_account" "lake" {
   network_rules {
     default_action             = "Deny"
     ip_rules                   = [var.public_ip_address_to_allow]
-    virtual_network_subnet_ids = [var.subnet_id]
-    # bypass                     = ["AzureServices", "Metrics"]
-    bypass = ["AzureServices"]
+    virtual_network_subnet_ids = [var.default_subnet_id, var.databricks_public_subnet_id, var.databricks_private_subnet_id]
+    bypass                     = ["AzureServices"]
   }
 }
 
@@ -49,7 +48,12 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "external" {
   ]
 }
 
-
+# Allow Databricks AAD SP to connect
+resource "azurerm_role_assignment" "databricks" {
+  scope                = azurerm_storage_account.lake.id
+  role_definition_name = "Storage Blob Data Contributor"
+  principal_id         = var.databricks_service_principal_object_id
+}
 
 # ### Private Endpoint ###
 # resource "azurerm_private_dns_zone" "default" {

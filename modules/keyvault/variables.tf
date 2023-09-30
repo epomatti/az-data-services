@@ -28,3 +28,8 @@ variable "datalake_access_key" {
   type      = string
   sensitive = true
 }
+
+variable "databricks_sp_secret" {
+  type      = string
+  sensitive = true
+}

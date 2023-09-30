@@ -18,10 +18,22 @@ variable "vnet_id" {
   type = string
 }
 
-variable "subnet_id" {
+variable "default_subnet_id" {
+  type = string
+}
+
+variable "databricks_private_subnet_id" {
+  type = string
+}
+
+variable "databricks_public_subnet_id" {
   type = string
 }
 
 variable "public_ip_address_to_allow" {
+  type = string
+}
+
+variable "databricks_service_principal_object_id" {
   type = string
 }
