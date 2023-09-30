@@ -1,3 +1,5 @@
+#!/bin/bash
+
 group="rg-databoss"
 adfName="adf-databoss"
 

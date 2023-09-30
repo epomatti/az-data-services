@@ -28,9 +28,6 @@ bash scripts/createExternalPipeline.sh
 ```sh
 az datafactory pipeline create-run --resource-group rg-databoss \
     --name Adfv2CopyExertnalFileToLake --factory-name adf-databoss
-
-az datafactory pipeline-run show --resource-group ADFQuickStartRG \
-    --factory-name ADFTutorialFactory --run-id 00000000-0000-0000-0000-000000000000
 ```
 
 
@@ -54,3 +51,28 @@ Approve the private link
 
 https://learn.microsoft.com/en-us/azure/data-factory/managed-virtual-network-private-endpoint#managed-private-endpoints
 https://learn.microsoft.com/en-us/azure/data-factory/concepts-integration-runtime
+
+
+---
+
+### Clean-up
+
+Delete the Databricks configuration:
+
+```sh
+terraform -chdir="databricks" destroy -auto-approve
+```
+
+Delete ADF objects:
+
+```sh
+bash scripts/deleteADFObjects.sh
+```
+
+terraform
+
+Delete the Azure infrastructure:
+
+```sh
+terraform -chdir="databricks" destroy -auto-approve
+```
