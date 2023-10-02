@@ -22,3 +22,7 @@ output "secondary_dfs_endpoint" {
 output "primary_connection_string" {
   value = azurerm_storage_account.lake.primary_connection_string
 }
+
+output "synapse_filesystem_id" {
+  value = azurerm_storage_data_lake_gen2_filesystem.synapse.id
+}

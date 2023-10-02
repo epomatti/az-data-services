@@ -11,9 +11,9 @@ provider "databricks" {
   host = var.workspace_url
 }
 
-data "databricks_node_type" "smallest" {
-  local_disk = true
-}
+# data "databricks_node_type" "smallest" {
+#   local_disk = true
+# }
 
 data "databricks_spark_version" "latest_lts" {
   long_term_support = true
@@ -22,7 +22,8 @@ data "databricks_spark_version" "latest_lts" {
 resource "databricks_cluster" "shared_autoscaling" {
   cluster_name            = "Shared Autoscaling"
   spark_version           = data.databricks_spark_version.latest_lts.id
-  node_type_id            = data.databricks_node_type.smallest.id
+  # node_type_id            = data.databricks_node_type.smallest.id
+  node_type_id            = "Standard_DS3_v2"
   autotermination_minutes = 20
 
   autoscale {

@@ -58,6 +58,24 @@ variable "mssql_public_network_access_enabled" {
   type = bool
 }
 
+### Synapse ###
+variable "synapse_sku_name" {
+  type = string
+}
+
+variable "synapse_sql_administrator_login" {
+  type = string
+}
+
+variable "synapse_sql_administrator_login_password" {
+  type      = string
+  sensitive = true
+}
+
+variable "synapse_public_network_access_enabled" {
+  type = bool
+}
+
 ### Outbound Storage ###
 variable "outbound_storage_public_network_access_enabled" {
   type = bool

@@ -27,6 +27,12 @@ terraform init
 terraform apply -auto-approve
 ```
 
+Pause the Synapse SQL pool to avoid costs while setting up the infrastructure:
+
+```sh
+az synapse sql pool pause -n pool1 --workspace-name synw-databoss -g rg-databoss
+```
+
 Once the `apply` phase is complete, approve the managed private endpoints for ADF:
 
 ```sh
@@ -94,6 +100,9 @@ https://learn.microsoft.com/en-us/azure/data-factory/managed-virtual-network-pri
 https://learn.microsoft.com/en-us/azure/data-factory/concepts-integration-runtime
 https://learn.microsoft.com/en-us/azure/databricks/storage/azure-storage
 https://learn.microsoft.com/en-us/azure/databricks/administration-guide/users-groups/service-principals
+https://learn.microsoft.com/en-us/azure/databricks/external-data/synapse-analytics
+
+https://learn.microsoft.com/en-us/azure/synapse-analytics/security/synapse-private-link-hubs
 
 
 ## 🧹 Clean-up

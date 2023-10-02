@@ -115,6 +115,23 @@ module "mssql" {
   databricks_private_subnet_id  = module.vnet.databricks_private_subnet_id
 }
 
+module "synapse" {
+  source   = "./modules/synapse"
+  workload = local.workload
+  group    = azurerm_resource_group.default.name
+  location = azurerm_resource_group.default.location
+
+  sku_name                             = var.synapse_sku_name
+  sql_administrator_login              = var.synapse_sql_administrator_login
+  sql_administrator_login_password     = var.synapse_sql_administrator_login_password
+  storage_data_lake_gen2_filesystem_id = module.datalake.synapse_filesystem_id
+  public_ip_address_to_allow           = var.public_ip_address_to_allow
+  public_network_access_enabled        = var.synapse_public_network_access_enabled
+  vnet_id                              = module.vnet.vnet_id
+  default_subnet_id                    = module.vnet.default_subnet_id
+  datalake_storage_account_id          = module.datalake.storage_account_id
+}
+
 module "keyvault" {
   source   = "./modules/keyvault"
   workload = local.workload
