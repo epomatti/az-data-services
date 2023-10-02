@@ -2,11 +2,13 @@
 
 In this demo a solution named Databoss will be used to connect and apply Azure data services.
 
-## 1 - Create the resources 🚀
+## Infrastructure
 
-Copy the '.auto.tfvars' template:
+### 🚀 1 - Azure resources creation
 
-```
+Copy the `.auto.tfvars` template:
+
+```sh
 cp templates/template.tf .auto.tfvars
 ```
 
@@ -31,7 +33,11 @@ Once the `apply` phase is complete, approve the managed private endpoints for AD
 bash scripts/approveManagedPrivateEndpoints.sh
 ```
 
-## 💾 Setup the data
+💡 A single connection to Databricks is required to create the access policies on Azure Key Vault.
+
+If everything is OK, proceed to the next section.
+
+### 💾 2- Data setup
 
 Upload some test data:
 
@@ -40,7 +46,7 @@ bash scripts/uploadFilesToDataLake.sh
 bash scripts/uploadFilesToExternalStorage.sh
 ```
 
-This will create the ADF objects:
+Create the Azure Data Factory objects:
 
 ```sh
 bash scripts/createExternalPipeline.sh
@@ -49,17 +55,19 @@ bash scripts/createExternalPipeline.sh
 Run the ADF pipeline import data from the external storage into the data lake:
 
 ```sh
-az datafactory pipeline create-run --resource-group rg-databoss \
-    --name Adfv2CopyExertnalFileToLake --factory-name adf-databoss
+az datafactory pipeline create-run \
+    --resource-group rg-databoss \
+    --name Adfv2CopyExertnalFileToLake \
+    --factory-name adf-databoss
 ```
 
-## 🧰 Configure the Databricks cluster
+### 🧰 3- Databricks cluster configuration
 
 The previous Azure run should have created the `databricks/.auto.tfvars` file to configure Databricks.
 
 Apply the Databricks configuration:
 
-> 💡 You need to login to Databricks once before running this command.
+> 💡 If you haven't yet, you need to login to Databricks, which will create Key Vault policies.
 
 ```sh
 terraform -chdir="databricks" init
