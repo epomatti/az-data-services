@@ -154,6 +154,7 @@ mssql_fqdn           = "${module.mssql.fully_qualified_domain_name}"
 dls_name             = "${module.datalake.storage_account_name}"
 sp_tenant_id         = "${module.aad.tenant_id}"
 sp_application_id    = "${module.aad.application_id}"
+synapse_sql_endpoint = "${module.synapse.connectivity_endpoints.sql}"
 EOF
 
   filename = "${path.module}/databricks/.auto.tfvars"

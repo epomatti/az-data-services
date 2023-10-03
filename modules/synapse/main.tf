@@ -39,7 +39,7 @@ resource "azurerm_synapse_managed_private_endpoint" "datalake" {
   target_resource_id   = var.datalake_storage_account_id
   subresource_name     = "dfs"
 
-  # depends_on = [azurerm_synapse_firewall_rule.allow_all]
+  depends_on = [azurerm_synapse_firewall_rule.allow_all]
 }
 
 resource "azurerm_synapse_firewall_rule" "allow_all" {
