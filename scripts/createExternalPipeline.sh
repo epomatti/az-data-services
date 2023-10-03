@@ -14,5 +14,5 @@ az datafactory dataset create --resource-group $group \
     --properties @OutputDataset.json
 
 az datafactory pipeline create --resource-group $group \
-    --factory-name $adfName --name Adfv2CopyExertnalFileToLake \
+    --factory-name $adfName --name Adfv2CopyExternalFileToLake \
     --pipeline @Adfv2QuickStartPipeline.json

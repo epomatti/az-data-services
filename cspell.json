@@ -7,9 +7,13 @@
     "dictionaryDefinitions": [],
     "dictionaries": [],
     "words": [
+        "Adfv",
         "databoss",
         "databricks",
-        "datafactory"
+        "datafactory",
+        "myip",
+        "opendns",
+        "synw"
     ],
     "ignoreWords": [],
     "import": []

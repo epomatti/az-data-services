@@ -63,11 +63,17 @@ Run the ADF pipeline import data from the external storage into the data lake:
 ```sh
 az datafactory pipeline create-run \
     --resource-group rg-databoss \
-    --name Adfv2CopyExertnalFileToLake \
+    --name Adfv2CopyExternalFileToLake \
     --factory-name adf-databoss
 ```
 
 ### Synapse
+
+If you've stopped the Synapse pool, `resume` it:
+
+```sh
+az synapse sql pool resume -n pool1 --workspace-name synw-databoss -g rg-databoss
+```
 
 Create the template scripts in Synapse:
 
@@ -75,7 +81,7 @@ Create the template scripts in Synapse:
 bash scripts/createSynapseSQLScripts.sh
 ```
 
-Connect to Synapse and execute the scripts.
+Now, connect to Synapse Web UI or directly to the SQL endpoint and and execute the scripts.
 
 
 ### 🧰 3- Databricks cluster configuration

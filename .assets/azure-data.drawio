@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-10-03T19:49:06.843Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="7SLYYg3HzLYUWS9zdMAY" version="22.0.2" type="device" pages="2">
+<mxfile host="Electron" modified="2023-10-03T21:22:18.998Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.0.2 Chrome/114.0.5735.289 Electron/25.8.4 Safari/537.36" etag="FSwKFiYUQ8BosDKIbhc1" version="22.0.2" type="device" pages="2">
   <diagram name="dataflow" id="PVb0PvvFzybzf4PNu3Vb">
-    <mxGraphModel dx="1995" dy="697" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="2234" dy="836" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -61,9 +61,6 @@
         <mxCell id="s7gHQd2DAX9O-iSUI2Zc-20" value="Outbound&lt;br&gt;Blob Storage" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/BlobBlock.svg;" parent="1" vertex="1">
           <mxGeometry x="-40" y="429" width="50" height="42" as="geometry" />
         </mxCell>
-        <mxCell id="s7gHQd2DAX9O-iSUI2Zc-21" value="Queue Storage" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Storage_Queue.svg;" parent="1" vertex="1">
-          <mxGeometry x="-45.769999999999996" y="310" width="61.54" height="50" as="geometry" />
-        </mxCell>
         <mxCell id="utsrNoRMrx8_oV4r-W6h-3" value="Poll data from External System" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-480" y="372" width="120" height="60" as="geometry" />
         </mxCell>
@@ -100,10 +97,22 @@
         <mxCell id="sXbq4nFUl2SMefXmG_TW-1" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/security/Key_Vaults.svg;" parent="1" vertex="1">
           <mxGeometry x="-148.75" y="270" width="48" height="48" as="geometry" />
         </mxCell>
-        <mxCell id="eDVK0fBQsZwrNB0Jycr--1" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;" parent="1" source="CnDG4pe8O2OawKzuqLS--1" target="s7gHQd2DAX9O-iSUI2Zc-21" edge="1">
+        <mxCell id="PGrF_840qub0VPMDN4KY-1" value="Service Bus" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/integration/Service_Bus.svg;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="-42.14" y="318" width="52.14" height="46" as="geometry" />
+        </mxCell>
+        <mxCell id="PGrF_840qub0VPMDN4KY-2" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="1" source="CnDG4pe8O2OawKzuqLS--1" target="PGrF_840qub0VPMDN4KY-1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-139" y="421" as="sourcePoint" />
+            <mxPoint x="-125" y="425" as="sourcePoint" />
             <mxPoint x="-30" y="453" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PGrF_840qub0VPMDN4KY-3" value="Function App" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/compute/Function_Apps.svg;" vertex="1" parent="1">
+          <mxGeometry x="92.24" y="316.5" width="55.53" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="PGrF_840qub0VPMDN4KY-5" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;endArrow=block;endFill=1;" edge="1" parent="1" source="PGrF_840qub0VPMDN4KY-1" target="PGrF_840qub0VPMDN4KY-3">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-125" y="395" as="sourcePoint" />
+            <mxPoint x="-32" y="361" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
