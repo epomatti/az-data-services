@@ -20,10 +20,10 @@ data "databricks_spark_version" "latest_lts" {
 }
 
 resource "databricks_cluster" "shared_autoscaling" {
-  cluster_name            = "Shared Autoscaling"
-  spark_version           = data.databricks_spark_version.latest_lts.id
+  cluster_name  = "Shared Autoscaling"
+  spark_version = data.databricks_spark_version.latest_lts.id
   # node_type_id            = data.databricks_node_type.smallest.id
-  node_type_id            = "Standard_DS3_v2"
+  node_type_id            = var.databricks_node_type_id
   autotermination_minutes = 20
 
   autoscale {
@@ -32,10 +32,11 @@ resource "databricks_cluster" "shared_autoscaling" {
   }
 
   spark_env_vars = {
-    MSSQL_FQDN        = "${var.mssql_fqdn}"
-    DLS_NAME          = "${var.dls_name}"
-    SP_TENANT_ID      = "${var.sp_tenant_id}"
-    SP_APPLICATION_ID = "${var.sp_application_id}"
+    MSSQL_FQDN           = "${var.mssql_fqdn}"
+    DLS_NAME             = "${var.dls_name}"
+    SP_TENANT_ID         = "${var.sp_tenant_id}"
+    SP_APPLICATION_ID    = "${var.sp_application_id}"
+    SYNAPSE_SQL_ENDPOINT = "${var.synapse_sql_endpoint}"
   }
 }
 
@@ -69,4 +70,9 @@ resource "databricks_notebook" "keyvault_scala" {
 resource "databricks_notebook" "lake" {
   source = "${path.module}/notebooks/dls.py"
   path   = "${data.databricks_current_user.me.home}/datalake"
+}
+
+resource "databricks_notebook" "synapse" {
+  source = "${path.module}/notebooks/synapse.scala"
+  path   = "${data.databricks_current_user.me.home}/synapse"
 }

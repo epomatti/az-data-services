@@ -33,3 +33,13 @@ variable "databricks_sp_secret" {
   type      = string
   sensitive = true
 }
+
+variable "synapse_sql_administrator_login" {
+  type      = string
+  sensitive = true
+}
+
+variable "synapse_sql_administrator_login_password" {
+  type      = string
+  sensitive = true
+}

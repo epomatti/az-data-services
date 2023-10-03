@@ -67,6 +67,17 @@ az datafactory pipeline create-run \
     --factory-name adf-databoss
 ```
 
+### Synapse
+
+Create the template scripts in Synapse:
+
+```sh
+bash scripts/createSynapseSQLScripts.sh
+```
+
+Connect to Synapse and execute the scripts.
+
+
 ### 🧰 3- Databricks cluster configuration
 
 The previous Azure run should have created the `databricks/.auto.tfvars` file to configure Databricks.
@@ -81,6 +92,9 @@ terraform -chdir="databricks" apply -auto-approve
 ```
 
 Check the workspace files and run the test notebooks and make sure that connectivity is complete.
+
+
+
 
 
 

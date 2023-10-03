@@ -39,16 +39,17 @@ resource "azurerm_synapse_managed_private_endpoint" "datalake" {
   target_resource_id   = var.datalake_storage_account_id
   subresource_name     = "dfs"
 
-  depends_on = [azurerm_synapse_firewall_rule.allow_all]
+  depends_on = [azurerm_synapse_firewall_rule.allow_client_ip]
 }
 
-resource "azurerm_synapse_firewall_rule" "allow_all" {
-  name                 = "AllowAll"
+resource "azurerm_synapse_firewall_rule" "allow_client_ip" {
+  name                 = "AllowClientIP"
   synapse_workspace_id = azurerm_synapse_workspace.default.id
-  start_ip_address     = var.public_ip_address_to_allow # "0.0.0.0"
-  end_ip_address       = var.public_ip_address_to_allow # "255.255.255.255"
+  start_ip_address     = var.public_ip_address_to_allow
+  end_ip_address       = var.public_ip_address_to_allow
 }
 
+# Rule named "AllowAllWindowsAzureIps" with "0.0.0.0" will allow Azure Services to connect.
 resource "azurerm_synapse_firewall_rule" "allow_access_to_azure_services" {
   name                 = "AllowAllWindowsAzureIps"
   synapse_workspace_id = azurerm_synapse_workspace.default.id

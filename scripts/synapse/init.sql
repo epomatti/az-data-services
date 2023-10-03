@@ -1,0 +1,13 @@
+CREATE MASTER KEY;
+
+CREATE TABLE [dbo].[TestTable]
+(
+    id int NOT NULL,
+    testColumn VARCHAR
+)
+WITH
+(
+    DISTRIBUTION = HASH (id),
+    CLUSTERED COLUMNSTORE INDEX
+)
+GO

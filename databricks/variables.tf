@@ -1,3 +1,8 @@
+variable "databricks_node_type_id" {
+  type    = string
+  default = "Standard_DS3_v2"
+}
+
 variable "workspace_url" {
   type = string
 }
@@ -23,5 +28,9 @@ variable "sp_tenant_id" {
 }
 
 variable "sp_application_id" {
+  type = string
+}
+
+variable "synapse_sql_endpoint" {
   type = string
 }

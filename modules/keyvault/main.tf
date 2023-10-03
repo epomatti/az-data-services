@@ -17,7 +17,7 @@ resource "azurerm_key_vault" "databricks" {
 
   # FIXME: Should be controlled with AzureDatabricks user
   lifecycle {
-    ignore_changes = [ access_policy ]
+    ignore_changes = [access_policy]
   }
 
   # TODO: Network
@@ -50,5 +50,17 @@ resource "azurerm_key_vault_secret" "datalake_access_key" {
 resource "azurerm_key_vault_secret" "databricks_sp_secret" {
   name         = "dlsserviceprincipalsecret"
   value        = var.databricks_sp_secret
+  key_vault_id = azurerm_key_vault.databricks.id
+}
+
+resource "azurerm_key_vault_secret" "synapse_sql_administrator_login" {
+  name         = "synapselogin"
+  value        = var.synapse_sql_administrator_login
+  key_vault_id = azurerm_key_vault.databricks.id
+}
+
+resource "azurerm_key_vault_secret" "synapse_sql_administrator_login_password" {
+  name         = "synapseloginpassword"
+  value        = var.synapse_sql_administrator_login_password
   key_vault_id = azurerm_key_vault.databricks.id
 }

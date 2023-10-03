@@ -138,11 +138,13 @@ module "keyvault" {
   group    = azurerm_resource_group.default.name
   location = azurerm_resource_group.default.location
 
-  mssql_admin_login          = var.mssql_admin_login
-  mssql_admin_login_password = var.mssql_admin_login_password
-  datalake_connection_string = module.datalake.primary_connection_string
-  datalake_access_key        = module.datalake.primary_access_key
-  databricks_sp_secret       = module.aad.service_credential_secret_value
+  mssql_admin_login                        = var.mssql_admin_login
+  mssql_admin_login_password               = var.mssql_admin_login_password
+  datalake_connection_string               = module.datalake.primary_connection_string
+  datalake_access_key                      = module.datalake.primary_access_key
+  databricks_sp_secret                     = module.aad.service_credential_secret_value
+  synapse_sql_administrator_login          = var.synapse_sql_administrator_login
+  synapse_sql_administrator_login_password = var.synapse_sql_administrator_login_password
 }
 
 resource "local_file" "databricks_tfvars" {
