@@ -132,6 +132,13 @@ module "synapse" {
   datalake_storage_account_id          = module.datalake.storage_account_id
 }
 
+module "bus" {
+  source   = "./modules/bus"
+  workload = local.workload
+  group    = azurerm_resource_group.default.name
+  location = azurerm_resource_group.default.location
+}
+
 module "keyvault" {
   source   = "./modules/keyvault"
   workload = local.workload
@@ -145,6 +152,7 @@ module "keyvault" {
   databricks_sp_secret                     = module.aad.service_credential_secret_value
   synapse_sql_administrator_login          = var.synapse_sql_administrator_login
   synapse_sql_administrator_login_password = var.synapse_sql_administrator_login_password
+  bus_connection_string                    = module.bus.primary_connection_string
 }
 
 resource "local_file" "databricks_tfvars" {

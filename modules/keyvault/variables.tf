@@ -43,3 +43,8 @@ variable "synapse_sql_administrator_login_password" {
   type      = string
   sensitive = true
 }
+
+variable "bus_connection_string" {
+  type      = string
+  sensitive = true
+}

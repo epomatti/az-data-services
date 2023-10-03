@@ -103,6 +103,13 @@ Check the workspace files and run the test notebooks and make sure that connecti
 
 
 
+## Functions
+
+
+### Local Development
+
+
+
 
 - [] Private endpoints
 - [] Managed private network

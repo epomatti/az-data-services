@@ -64,3 +64,9 @@ resource "azurerm_key_vault_secret" "synapse_sql_administrator_login_password" {
   value        = var.synapse_sql_administrator_login_password
   key_vault_id = azurerm_key_vault.databricks.id
 }
+
+resource "azurerm_key_vault_secret" "bus_connection_string" {
+  name         = "servicebusconnectionstring"
+  value        = var.bus_connection_string
+  key_vault_id = azurerm_key_vault.databricks.id
+}
