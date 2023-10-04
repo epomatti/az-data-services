@@ -132,8 +132,18 @@ Get the
 az servicebus namespace authorization-rule keys list -n RootManageSharedAccessKey --namespace-name bus-databoss -g rg-databoss
 ```
 
-```
-AzureWebJobsStorage
+Create the 
+
+```json
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "AzureWebJobsFeatureFlags": "EnableWorkerIndexing",
+    "AzureWebJobsStorage": "",
+    "AzureWebJobsServiceBusConnectionString": ""
+  }
+}
 ```
 
 

@@ -32,13 +32,13 @@ resource "azurerm_linux_function_app" "databricks_servicebus" {
   # TODO: Logging
 
   site_config {
-    always_on = true
     application_stack {
       python_version = "3.11"
     }
   }
 
   app_settings = {
+    # "FUNCTIONS_WORKER_RUNTIME"               = "python"
     "AzureWebJobsServiceBusConnectionString" = "${var.servicebus_connection_string}"
   }
 }
