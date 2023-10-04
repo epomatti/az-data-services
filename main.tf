@@ -139,6 +139,15 @@ module "bus" {
   location = azurerm_resource_group.default.location
 }
 
+module "function" {
+  source   = "./modules/function"
+  workload = local.workload
+  group    = azurerm_resource_group.default.name
+  location = azurerm_resource_group.default.location
+
+  servicebus_connection_string = module.bus.primary_connection_string
+}
+
 module "keyvault" {
   source   = "./modules/keyvault"
   workload = local.workload

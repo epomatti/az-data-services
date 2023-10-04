@@ -2,6 +2,8 @@
 
 In this demo a solution named Databoss will be used to connect and apply Azure data services.
 
+> 🚧 Under construction
+
 ## Infrastructure
 
 ### 🚀 1 - Azure resources creation
@@ -142,6 +144,7 @@ AzureWebJobsStorage
 - [] Internal runtime
 - [] Code repository
 - [] AD permissions
+- [] Azure Monitor (Logs, Insights)
 
 Enable IR interactive authoring
 Approve the private link
