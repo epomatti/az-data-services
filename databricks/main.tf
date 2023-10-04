@@ -47,6 +47,13 @@ resource "databricks_library" "mssql_jdbc" {
   }
 }
 
+resource "databricks_library" "servicebus" {
+  cluster_id = databricks_cluster.shared_autoscaling.id
+  pypi {
+    package = "azure-servicebus"
+  }
+}
+
 # TODO: initial_manage_principal
 
 # TODO: Implement service principal
@@ -64,7 +71,7 @@ data "databricks_current_user" "me" {
 
 resource "databricks_notebook" "keyvault_scala" {
   source = "${path.module}/notebooks/mssql.scala"
-  path   = "${data.databricks_current_user.me.home}/kv-scala"
+  path   = "${data.databricks_current_user.me.home}/mssql"
 }
 
 resource "databricks_notebook" "lake" {
@@ -75,4 +82,9 @@ resource "databricks_notebook" "lake" {
 resource "databricks_notebook" "synapse" {
   source = "${path.module}/notebooks/synapse.scala"
   path   = "${data.databricks_current_user.me.home}/synapse"
+}
+
+resource "databricks_notebook" "servicebus" {
+  source = "${path.module}/notebooks/servicebus.py"
+  path   = "${data.databricks_current_user.me.home}/servicebus"
 }
