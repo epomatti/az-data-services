@@ -1,4 +1,4 @@
-# Azure data services big demo
+# Azure - Data services
 
 In this demo a solution named Databoss will be used to connect and apply Azure data services.
 
@@ -69,7 +69,7 @@ az datafactory pipeline create-run \
     --factory-name adf-databoss
 ```
 
-### Synapse
+### 🟦 3 - Synapse
 
 If you've stopped the Synapse pool, `resume` it:
 
@@ -86,7 +86,7 @@ bash scripts/createSynapseSQLScripts.sh
 Now, connect to Synapse Web UI or directly to the SQL endpoint and and execute the scripts.
 
 
-### 🧰 3 - Databricks cluster configuration
+### 🧰 4 - Databricks cluster configuration
 
 The previous Azure run should have created the `databricks/.auto.tfvars` file to configure Databricks.
 
@@ -102,7 +102,7 @@ terraform -chdir="databricks" apply -auto-approve
 Check the workspace files and run the test notebooks and make sure that connectivity is complete.
 
 
-### 🗲 4 - Function
+### 🗲 5 - Function
 
 #### Deployment
 
