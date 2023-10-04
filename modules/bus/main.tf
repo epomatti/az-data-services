@@ -5,8 +5,8 @@ resource "azurerm_servicebus_namespace" "default" {
   sku                 = "Basic"
 }
 
-resource "azurerm_servicebus_queue" "function" {
-  name                = "function"
+resource "azurerm_servicebus_queue" "databricks" {
+  name                = "databricks"
   namespace_id        = azurerm_servicebus_namespace.default.id
   enable_partitioning = true
 }

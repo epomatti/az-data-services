@@ -84,7 +84,7 @@ bash scripts/createSynapseSQLScripts.sh
 Now, connect to Synapse Web UI or directly to the SQL endpoint and and execute the scripts.
 
 
-### 🧰 3- Databricks cluster configuration
+### 🧰 3 - Databricks cluster configuration
 
 The previous Azure run should have created the `databricks/.auto.tfvars` file to configure Databricks.
 
@@ -100,14 +100,39 @@ terraform -chdir="databricks" apply -auto-approve
 Check the workspace files and run the test notebooks and make sure that connectivity is complete.
 
 
+### 🗲 4 - Function
 
+#### Deployment
 
-
-## Functions
+```
+func azure functionapp publish <FunctionAppName>
+```
 
 
 ### Local Development
 
+```
+python -m venv venv
+. venv/bin/activate
+pip install -r requirements.txt
+
+deactivate
+```
+
+
+```sh
+func start
+```
+
+Get the 
+
+```sh
+az servicebus namespace authorization-rule keys list -n RootManageSharedAccessKey --namespace-name bus-databoss -g rg-databoss
+```
+
+```
+AzureWebJobsStorage
+```
 
 
 
