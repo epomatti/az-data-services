@@ -17,7 +17,7 @@ resource "azurerm_service_plan" "databricks_servicebus" {
 }
 
 resource "azurerm_linux_function_app" "databricks_servicebus" {
-  name                = "func-${var.workload}-dbwbus"
+  name                = "func-${var.workload}-dbwbus" # TODO: databricks
   resource_group_name = var.group
   location            = var.location
 
@@ -26,21 +26,65 @@ resource "azurerm_linux_function_app" "databricks_servicebus" {
   service_plan_id            = azurerm_service_plan.databricks_servicebus.id
 
   # FIXME: Document this
-  public_network_access_enabled = false
+  public_network_access_enabled = var.public_network_access_enabled
 
   # TODO: Application Insights
   # TODO: Logging
 
   site_config {
+    application_insights_key               = azurerm_application_insights.default.instrumentation_key
+    application_insights_connection_string = azurerm_application_insights.default.connection_string
+
     application_stack {
       python_version = "3.11"
     }
   }
 
   app_settings = {
-    # "FUNCTIONS_WORKER_RUNTIME"               = "python"
+    "AzureWebJobsFeatureFlags"               = "EnableWorkerIndexing"
     "AzureWebJobsServiceBusConnectionString" = "${var.servicebus_connection_string}"
   }
 }
 
+### Application Insights ###
 
+resource "azurerm_log_analytics_workspace" "appi" {
+  name                = "logs-${var.workload}-functions-appi"
+  resource_group_name = var.group
+  location            = var.location
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
+resource "azurerm_application_insights" "default" {
+  name                = "appi-${var.workload}-functions"
+  resource_group_name = var.group
+  location            = var.location
+  workspace_id        = azurerm_log_analytics_workspace.appi.id
+  application_type    = "other"
+}
+
+### Diagnostic ###
+
+resource "azurerm_log_analytics_workspace" "logs" {
+  name                = "logs-${var.workload}-functions-logs"
+  resource_group_name = var.group
+  location            = var.location
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
+resource "azurerm_monitor_diagnostic_setting" "function" {
+  name                       = "Logs"
+  target_resource_id         = azurerm_linux_function_app.databricks_servicebus.id
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.logs.id
+
+  enabled_log {
+    category = "FunctionAppLogs"
+  }
+
+  metric {
+    category = "AllMetrics"
+    enabled  = true
+  }
+}

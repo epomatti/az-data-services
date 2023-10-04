@@ -14,3 +14,7 @@ variable "servicebus_connection_string" {
   type      = string
   sensitive = true
 }
+
+variable "public_network_access_enabled" {
+  type = bool
+}

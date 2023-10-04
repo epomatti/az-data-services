@@ -145,7 +145,8 @@ module "function" {
   group    = azurerm_resource_group.default.name
   location = azurerm_resource_group.default.location
 
-  servicebus_connection_string = module.bus.primary_connection_string
+  servicebus_connection_string  = module.bus.primary_connection_string
+  public_network_access_enabled = var.function_public_network_access_enabled
 }
 
 module "keyvault" {
