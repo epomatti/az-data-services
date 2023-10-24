@@ -2,7 +2,9 @@
 
 In this demo a solution named Databoss will be used to connect and apply Azure data services.
 
-> 🚧 Under construction
+This is the high-level design with main components adn the data flow:
+
+<img src=".assets/azure-data.png" />
 
 ## Infrastructure
 
@@ -146,29 +148,14 @@ Create the
 }
 ```
 
+## Extra subjects
 
-
-- [] Private endpoints
-- [] Managed private network
-- [] Consume IP addresses
-- [] Internal runtime
-- [] Code repository
-- [] AD permissions
-- [] Azure Monitor (Logs, Insights)
-
-Enable IR interactive authoring
-Approve the private link
-
-
-https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-use-databricks-spark
-https://learn.microsoft.com/en-us/azure/data-factory/managed-virtual-network-private-endpoint#managed-private-endpoints
-https://learn.microsoft.com/en-us/azure/data-factory/concepts-integration-runtime
-https://learn.microsoft.com/en-us/azure/databricks/storage/azure-storage
-https://learn.microsoft.com/en-us/azure/databricks/administration-guide/users-groups/service-principals
-https://learn.microsoft.com/en-us/azure/databricks/external-data/synapse-analytics
-
-https://learn.microsoft.com/en-us/azure/synapse-analytics/security/synapse-private-link-hubs
-
+- Consume IP addresses
+- Internal runtime
+- Code repository
+- AD permissions
+- Azure Monitor (Logs, Insights)
+- Enable IR interactive authoring
 
 ## 🧹 Clean-up
 
@@ -189,3 +176,13 @@ Delete the Azure infrastructure:
 ```sh
 terraform destroy -auto-approve
 ```
+
+## Reference
+
+- [Tutorial: ADLSv2, Azure Databricks & Spark](https://learn.microsoft.com/en-us/azure/storage/blobs/data-lake-storage-use-databricks-spark)
+- [ADF Private Endpoints](https://learn.microsoft.com/en-us/azure/data-factory/managed-virtual-network-private-endpoint#managed-private-endpoints)
+- [Integration runtime in Azure Data Factory](https://learn.microsoft.com/en-us/azure/data-factory/concepts-integration-runtime)
+- [Connect to Azure Data Lake Storage Gen2 and Blob Storage](https://learn.microsoft.com/en-us/azure/databricks/storage/azure-storage)
+- [Azure Databricks: Manage service principals](https://learn.microsoft.com/en-us/azure/databricks/administration-guide/users-groups/service-principals)
+- [Azure Databricks: Query data in Azure Synapse Analytics](https://learn.microsoft.com/en-us/azure/databricks/external-data/synapse-analytics)
+- [Azure Synapse: Azure Private Link Hubs](https://learn.microsoft.com/en-us/azure/synapse-analytics/security/synapse-private-link-hubs)
