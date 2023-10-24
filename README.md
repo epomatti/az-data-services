@@ -108,12 +108,15 @@ Check the workspace files and run the test notebooks and make sure that connecti
 
 #### Deployment
 
-```
+Deployment command:
+
+```sh
 func azure functionapp publish <FunctionAppName>
 ```
 
-
 ### Local Development
+
+Create the virtual environment:
 
 ```
 python -m venv venv
@@ -123,18 +126,19 @@ pip install -r requirements.txt
 deactivate
 ```
 
+Start the function:
 
 ```sh
 func start
 ```
 
-Get the 
+Get the Service Bus connection string:
 
 ```sh
 az servicebus namespace authorization-rule keys list -n RootManageSharedAccessKey --namespace-name bus-databoss -g rg-databoss
 ```
 
-Create the 
+Create the `local.settings.json` file:
 
 ```json
 {
