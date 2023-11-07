@@ -24,7 +24,7 @@ dig +short myip.opendns.com @resolver1.opendns.com
 
 Add your public IP address to the `public_ip_address_to_allow` variable.
 
-Apply and create the infrastructure:
+Apply and create the Azure infrastructure:
 
 ```sh
 terraform init
@@ -47,19 +47,13 @@ bash scripts/approveManagedPrivateEndpoints.sh
 
 If everything is OK, proceed to the next section.
 
-### 💾 2- Data setup
+### 💾 2 - Data setup
 
 Upload some test data:
 
 ```sh
 bash scripts/uploadFilesToDataLake.sh
 bash scripts/uploadFilesToExternalStorage.sh
-```
-
-Create the Azure Data Factory objects:
-
-```sh
-bash scripts/createExternalPipeline.sh
 ```
 
 Run the ADF pipeline import data from the external storage into the data lake:
@@ -118,7 +112,7 @@ func azure functionapp publish <FunctionAppName>
 
 Create the virtual environment:
 
-```
+```sh
 python -m venv venv
 . venv/bin/activate
 pip install -r requirements.txt

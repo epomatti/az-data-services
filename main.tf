@@ -2,11 +2,15 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "3.75.0"
+      version = "3.79.0"
     }
     azuread = {
       source  = "hashicorp/azuread"
-      version = "2.43.0"
+      version = "2.45.0"
+    }
+    azapi = {
+      source  = "Azure/azapi"
+      version = "1.10.0"
     }
   }
 }
@@ -173,7 +177,7 @@ keyvault_uri         = "${module.keyvault.vault_uri}"
 mssql_fqdn           = "${module.mssql.fully_qualified_domain_name}"
 dls_name             = "${module.datalake.storage_account_name}"
 sp_tenant_id         = "${module.aad.tenant_id}"
-sp_application_id    = "${module.aad.application_id}"
+sp_client_id         = "${module.aad.client_id}"
 synapse_sql_endpoint = "${module.synapse.connectivity_endpoints.sql}"
 EOF
 

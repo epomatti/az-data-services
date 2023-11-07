@@ -27,7 +27,7 @@ variable "sp_tenant_id" {
   type = string
 }
 
-variable "sp_application_id" {
+variable "sp_client_id" {
   type = string
 }
 

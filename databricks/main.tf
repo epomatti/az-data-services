@@ -35,7 +35,7 @@ resource "databricks_cluster" "shared_autoscaling" {
     MSSQL_FQDN           = "${var.mssql_fqdn}"
     DLS_NAME             = "${var.dls_name}"
     SP_TENANT_ID         = "${var.sp_tenant_id}"
-    SP_APPLICATION_ID    = "${var.sp_application_id}"
+    SP_CLIENT_ID         = "${var.sp_client_id}"
     SYNAPSE_SQL_ENDPOINT = "${var.synapse_sql_endpoint}"
   }
 }

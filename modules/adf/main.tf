@@ -1,3 +1,11 @@
+terraform {
+  required_providers {
+    azapi = {
+      source = "Azure/azapi"
+    }
+  }
+}
+
 resource "azurerm_data_factory" "default" {
   name                = "adf-${var.workload}"
   location            = var.location
@@ -37,4 +45,115 @@ resource "azurerm_data_factory_linked_service_azure_blob_storage" "external" {
   name              = "external-storage"
   data_factory_id   = azurerm_data_factory.default.id
   connection_string = var.external_storage_connection_string
+}
+
+### Datasets ###
+resource "azapi_resource" "adf_dataset_source" {
+  type      = "Microsoft.DataFactory/factories/datasets@2018-06-01"
+  name      = "ExternalCSVInputDataset"
+  parent_id = azurerm_data_factory.default.id
+  body = jsonencode({
+    "properties" : {
+      "linkedServiceName" : {
+        "referenceName" : "external-storage",
+        "type" : "LinkedServiceReference"
+      },
+      "annotations" : [],
+      "type" : "DelimitedText",
+      "typeProperties" : {
+        "location" : {
+          "type" : "AzureBlobStorageLocation",
+          "fileName" : "export.csv",
+          "container" : "external"
+        },
+        "columnDelimiter" : ",",
+        "escapeChar" : "\\",
+        "firstRowAsHeader" : false,
+        "quoteChar" : "\""
+      },
+      "schema" : []
+    }
+  })
+}
+
+resource "azapi_resource" "adf_dataset_sink" {
+  type      = "Microsoft.DataFactory/factories/datasets@2018-06-01"
+  name      = "ExternalCSVOutputDataset" # TODO:
+  parent_id = azurerm_data_factory.default.id
+  body = jsonencode({
+    "properties" : {
+      "linkedServiceName" : {
+        "referenceName" : "Lake",
+        "type" : "LinkedServiceReference"
+      },
+      "annotations" : [],
+      "type" : "DelimitedText",
+      "typeProperties" : {
+        "location" : {
+          "type" : "AzureBlobFSLocation",
+          "fileName" : "export.csv",
+          "fileSystem" : "external"
+        },
+        "columnDelimiter" : ",",
+        "escapeChar" : "\\",
+        "firstRowAsHeader" : false,
+        "quoteChar" : "\""
+      },
+      "schema" : []
+    }
+  })
+}
+
+resource "azapi_resource" "adf_pipeline" {
+  type      = "Microsoft.DataFactory/factories/pipelines@2018-06-01"
+  name      = "Adfv2CopyExternalFileToLake"
+  parent_id = azurerm_data_factory.default.id
+  body = jsonencode({
+    "properties" : {
+      "activities" : [
+        {
+          "name" : "CopyFromBlobToLake",
+          "type" : "Copy",
+          "dependsOn" : [],
+          "policy" : {
+            "timeout" : "0.12:00:00",
+            "retry" : 0,
+            "retryIntervalInSeconds" : 30,
+            "secureOutput" : false,
+            "secureInput" : false
+          },
+          "userProperties" : [],
+          "typeProperties" : {
+            "source" : {
+              "type" : "DelimitedTextSource",
+              "storeSettings" : {
+                "type" : "AzureBlobStorageReadSettings",
+                "recursive" : true
+              }
+            },
+            "sink" : {
+              "type" : "DelimitedTextSink",
+              "storeSettings" : {
+                "type" : "AzureBlobFSWriteSettings"
+              }
+            },
+            "enableStaging" : false
+          },
+          "inputs" : [
+            {
+              "referenceName" : "${azapi_resource.adf_dataset_source.name}",
+              "type" : "DatasetReference"
+            }
+          ],
+          "outputs" : [
+            {
+              "referenceName" : "${azapi_resource.adf_dataset_sink.name}",
+              "type" : "DatasetReference"
+            }
+          ]
+        }
+      ],
+      "annotations" : []
+    }
+  })
 }
