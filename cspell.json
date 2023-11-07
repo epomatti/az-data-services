@@ -11,9 +11,11 @@
         "databoss",
         "databricks",
         "datafactory",
+        "functionapp",
         "myip",
         "opendns",
-        "synw"
+        "synw",
+        "venv"
     ],
     "ignoreWords": [],
     "import": []
