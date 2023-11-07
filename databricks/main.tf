@@ -2,7 +2,7 @@ terraform {
   required_providers {
     databricks = {
       source  = "databricks/databricks"
-      version = "1.27.0"
+      version = "1.29.0"
     }
   }
 }
@@ -11,25 +11,16 @@ provider "databricks" {
   host = var.workspace_url
 }
 
-# data "databricks_node_type" "smallest" {
-#   local_disk = true
-# }
-
 data "databricks_spark_version" "latest_lts" {
   long_term_support = true
 }
 
-resource "databricks_cluster" "shared_autoscaling" {
-  cluster_name  = "Shared Autoscaling"
-  spark_version = data.databricks_spark_version.latest_lts.id
-  # node_type_id            = data.databricks_node_type.smallest.id
+resource "databricks_cluster" "shared" {
+  cluster_name            = "Shared"
+  spark_version           = data.databricks_spark_version.latest_lts.id
   node_type_id            = var.databricks_node_type_id
+  num_workers             = 1
   autotermination_minutes = 20
-
-  autoscale {
-    min_workers = 1
-    max_workers = 50
-  }
 
   spark_env_vars = {
     MSSQL_FQDN           = "${var.mssql_fqdn}"
@@ -41,14 +32,14 @@ resource "databricks_cluster" "shared_autoscaling" {
 }
 
 resource "databricks_library" "mssql_jdbc" {
-  cluster_id = databricks_cluster.shared_autoscaling.id
+  cluster_id = databricks_cluster.shared.id
   maven {
-    coordinates = "com.microsoft.sqlserver:mssql-jdbc:12.4.1.jre11"
+    coordinates = "com.microsoft.sqlserver:mssql-jdbc:12.4.2.jre11"
   }
 }
 
 resource "databricks_library" "servicebus" {
-  cluster_id = databricks_cluster.shared_autoscaling.id
+  cluster_id = databricks_cluster.shared.id
   pypi {
     package = "azure-servicebus"
   }
