@@ -6,6 +6,10 @@ This is the high-level design with main components adn the data flow:
 
 <img src=".assets/azure-data.png" />
 
+This project is implemented almost fully within private network architecture, making use of Private Link and Service Endpoints to securely connect to resources.
+
+<img src=".assets/azure-data-network.png" />
+
 ## Infrastructure
 
 ### 🚀 1 - Azure resources creation
