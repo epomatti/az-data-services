@@ -163,12 +163,6 @@ Delete the Databricks configuration:
 terraform -chdir="databricks" destroy -auto-approve
 ```
 
-Delete ADF objects:
-
-```sh
-bash scripts/deleteADFObjects.sh
-```
-
 Delete the Azure infrastructure:
 
 ```sh
