@@ -1,4 +1,4 @@
-# Azure - Data services
+# Azure - Data Services
 
 In this demo a solution named Databoss will be used to connect and apply Azure data services.
 
