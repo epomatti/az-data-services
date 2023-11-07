@@ -55,7 +55,7 @@ resource "azapi_resource" "adf_dataset_source" {
   body = jsonencode({
     "properties" : {
       "linkedServiceName" : {
-        "referenceName" : "external-storage",
+        "referenceName" : "${azurerm_data_factory_linked_service_azure_blob_storage.external.name}",
         "type" : "LinkedServiceReference"
       },
       "annotations" : [],
@@ -78,12 +78,12 @@ resource "azapi_resource" "adf_dataset_source" {
 
 resource "azapi_resource" "adf_dataset_sink" {
   type      = "Microsoft.DataFactory/factories/datasets@2018-06-01"
-  name      = "ExternalCSVOutputDataset" # TODO:
+  name      = "ExternalCSVOutputDataset"
   parent_id = azurerm_data_factory.default.id
   body = jsonencode({
     "properties" : {
       "linkedServiceName" : {
-        "referenceName" : "Lake",
+        "referenceName" : "${azurerm_data_factory_linked_service_data_lake_storage_gen2.lake.name}",
         "type" : "LinkedServiceReference"
       },
       "annotations" : [],
